@@ -1,10 +1,12 @@
-//
+// Jordan Taranto 10/25/2023
 // Created by Riley Connors on 10/24/23.
 //
 
 #include "AStar.h"
 #include <iostream>
 #include <cmath>
+
+// using namespace std;
 
 struct AStar::Node {
     int x, y;
@@ -22,7 +24,7 @@ struct AStar::Compare {
 };
 
 struct AStar::HashFunction {
-    std::size_t operator()(const Node& node) const {
+    size_t operator()(const Node& node) const {
         return node.x * 31 + node.y;
     }
 };
@@ -31,11 +33,11 @@ float AStar::heuristic(int x1, int y1, int x2, int y2) {
     return abs(x1 - x2) + abs(y1 - y2);
 }
 
-AStar::AStar(std::vector<std::vector<int>> grid) : grid(grid) {}
+AStar::AStar(vector<vector<int>> grid) : grid(grid) {}
 
 bool AStar::findPath(int startX, int startY, int goalX, int goalY) {
-    std::priority_queue<Node, std::vector<Node>, Compare> openList;
-    std::unordered_set<Node, HashFunction> closedList;
+    priority_queue<Node, vector<Node>, Compare> openList;
+    unordered_set<Node, HashFunction> closedList;
 
     Node start = {startX, startY, 0, 0, heuristic(startX, startY, goalX, goalY), nullptr};
     Node goal = {goalX, goalY, 0, 0, 0, nullptr};
@@ -47,19 +49,19 @@ bool AStar::findPath(int startX, int startY, int goalX, int goalY) {
         openList.pop();
 
         if (current == goal) {
-            std::cout << "Reached the goal! Path: ";
+            cout << "Reached the goal! Path: ";
             Node* pathNode = &current;
             while (pathNode) {
-                std::cout << "(" << pathNode->x << ", " << pathNode->y << ") ";
+                cout << "(" << pathNode->x << ", " << pathNode->y << ") ";
                 pathNode = pathNode->parent;
             }
-            std::cout << std::endl;
+            cout << endl;
             return true;
         }
 
         closedList.insert(current);
 
-        std::vector<Node> successors = {
+        vector<Node> successors = {
                 {current.x + 1, current.y, 0, 0, 0, &current},
                 {current.x - 1, current.y, 0, 0, 0, &current},
                 {current.x, current.y + 1, 0, 0, 0, &current},
@@ -82,6 +84,6 @@ bool AStar::findPath(int startX, int startY, int goalX, int goalY) {
         }
     }
 
-    std::cout << "Failed to reach the goal." << std::endl;
+    cout << "Failed to reach the goal." << endl;
     return false;
 }
