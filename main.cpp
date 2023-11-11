@@ -9,7 +9,7 @@ int main() {
     srand(static_cast<unsigned>(time(nullptr))); // Seed for random number generation
 
     int X, Y;
-    cout << "Enter grid dimensions (X Y): ";
+    cout << "Enter grid dimensions they must be an odd number so you can have a (0,0) origin in the center (X Y): ";
     cin >> X >> Y;
 
     vector<vector<int>> grid(Y, vector<int>(X));
