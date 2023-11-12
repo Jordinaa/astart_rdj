@@ -47,10 +47,12 @@ bool AStar::findPath(int startX, int startY, int goalX, int goalY, int gridSizeX
     vector<Node> parentTracker;
     Node current = openList.top();
     int intCounter = 0;
+    int weightTotal = 0;
 
     while (intCounter < 3*(gridSizeX + gridSizeY)) {
         current = openList.top();
         parentTracker.push_back(current);
+        weightTotal += grid[current.x][current.y];
         openList = priority_queue<Node, vector<Node>, Compare>();
 
 
@@ -61,8 +63,8 @@ bool AStar::findPath(int startX, int startY, int goalX, int goalY, int gridSizeX
             {
                 cout << "(" << parentTracker[i].x << ", " << parentTracker[i].y << ") ";
             }
+            cout << "\nTotal distance: " << weightTotal << " units\n";
 
-            cout << endl;
             return true;
         }
         
