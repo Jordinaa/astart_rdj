@@ -1,3 +1,4 @@
+// Dylan Frazier 11/11/2023
 // Jordan Taranto 10/25/2023
 // Created by Riley Connors on 10/24/23.
 //
@@ -22,7 +23,7 @@ public:
     vector<vector<int>> grid;
 
     AStar(vector<vector<int>> grid);
-    bool findPath(int startX, int startY, int goalX, int goalY);
+    bool findPath(int startX, int startY, int goalX, int goalY, int grid_sizeX, int grid_sizeY);
 };
 
 
