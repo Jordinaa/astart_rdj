@@ -9,7 +9,7 @@ int main() {
     srand(static_cast<unsigned>(time(nullptr))); // Seed for random number generation
 
     int X, Y;
-    cout << "Enter grid dimensions they must be an odd number so you can have a (0,0) origin in the center (X Y): ";
+    cout << "Enter grid dimensions (X Y): ";
     cin >> X >> Y;
 
     vector<vector<int>> grid(Y, vector<int>(X));
@@ -19,7 +19,7 @@ int main() {
             grid[i][j] = rand() % 10 + 1; // Random numbers between 1 and 10
         }
     }
-
+  
     // Display the grid
     cout << "Generated Grid:" << endl;
     for (const auto& row : grid) {
@@ -29,23 +29,45 @@ int main() {
         cout << endl;
     }
 
-    // User chooses a corner
-    cout << "Choose your destination corner (1: top-left, 2: top-right, 3: bottom-left, 4: bottom-right): ";
-    int choice;
-    cin >> choice;
+    bool validUserInput;
+    int startX, startY;
+    // User chooses a starting point
+    do {
+        cout << "\nChoose your starting point (X, Y) \n";
+        cin >> startX >> startY;
+
+        if (startX < 0 || startX > X - 1 || startY < 0 || startY > Y - 1) {
+            cout << "Invalid starting location, please input a coordinate within the grid\n";
+            cout << "Note: The coordinates of the grid will extend from (0, 0) to one less than the size\n";
+            cout << "Ex: A 10 by 10 grid will extend from (0, 0) to (9, 9)\n";
+            validUserInput = false;
+        }
+        else
+            validUserInput = true;
+    } while (!validUserInput);
 
     int goalX, goalY;
-    switch (choice) {
-        case 1: goalX = 0; goalY = 0; break;
-        case 2: goalX = X - 1; goalY = 0; break;
-        case 3: goalX = 0; goalY = Y - 1; break;
-        case 4: goalX = X - 1; goalY = Y - 1; break;
-        default: cout << "Invalid choice. Exiting." << endl; return 1;
-    }
+    // User chooses a goal
+    do {
+        cout << "\nChoose your destination (X, Y) \n";
+        cin >> goalX >> goalY;
 
-    // Assuming the starting point is (0, 0)
+        if (goalX < 0 || goalX > X - 1 || goalY < 0 || goalY > Y - 1) {
+            cout << "Invalid destination, please input a coordinate within the grid\n";
+            cout << "Note: The coordinates of the grid will extend from (0, 0) to one less than the size\n";
+            cout << "Ex: A 10 by 10 grid will extend from (0, 0) to (9, 9)\n";
+            validUserInput = false;
+        }
+        else
+            validUserInput = true;
+    } while (!validUserInput);
+    
+
+   
+   
+    // Finding path
     AStar aStar(grid);
-    if (!aStar.findPath(0, 0, goalX, goalY)) {
+    if (!aStar.findPath(startX, startY, goalX, goalY, X - 1, Y - 1)) {
         cout << "No path found." << endl;
     }
 
