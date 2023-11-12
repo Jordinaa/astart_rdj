@@ -33,7 +33,7 @@ int main() {
     int startX, startY;
     // User chooses a starting point
     do {
-        cout << "\nChoose your starting point (X, Y) \n";
+        cout << "\nEnter starting point (X, Y): ";
         cin >> startX >> startY;
 
         if (startX < 0 || startX > X - 1 || startY < 0 || startY > Y - 1) {
@@ -49,7 +49,7 @@ int main() {
     int goalX, goalY;
     // User chooses a goal
     do {
-        cout << "\nChoose your destination (X, Y) \n";
+        cout << "\nChoose your destination (X, Y): ";
         cin >> goalX >> goalY;
 
         if (goalX < 0 || goalX > X - 1 || goalY < 0 || goalY > Y - 1) {
@@ -62,9 +62,6 @@ int main() {
             validUserInput = true;
     } while (!validUserInput);
     
-
-   
-   
     // Finding path
     AStar aStar(grid);
     if (!aStar.findPath(startX, startY, goalX, goalY, X - 1, Y - 1)) {
